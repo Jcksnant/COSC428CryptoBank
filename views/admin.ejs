@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #1e293b;
+            padding: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e293b;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+            text-align: left;
+        }
+
+        th {
+            background-color: #334155;
+        }
+
+        .balance {
+            color: #22c55e;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div><strong>Admin Panel</strong></div>
+
+    <div>
+        <a href="/bank">Back to Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>All Users</h1>
+
+    <!-- USERS TABLE -->
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>ETH Balance</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if (users.length === 0) { %>
+                <tr>
+                    <td colspan="3">No users found.</td>
+                </tr>
+            <% } %>
+
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.username %></td>
+
+                    <!-- Format ETH balance to 4 decimal places -->
+                    <td class="balance">
+                        <%= Number(user.ethBalance).toFixed(4) %> ETH
+                    </td>
+
+                    <!-- Show when the account was created -->
+                    <td>
+                        <%= new Date(user.createdAt).toLocaleString() %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
